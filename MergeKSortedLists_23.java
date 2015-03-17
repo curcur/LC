@@ -1,3 +1,7 @@
+Merge k Sorted Lists:
+    - Merge k sorted linked lists and return it as one sorted list. 
+    - Analyze and describe its complexity.
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -8,20 +12,19 @@
  *         next = null;
  *     }
  * }
- * 
+ **/
+
+/**
  * Two ways: (two ways of join)
  * 1). Merge k lists together at a time, each list has n numbers 
- * kn numbers, for each number you need to find a min from the k list
- * so the time complexity is (nklogk), heap or binary search, heap is better => O(k) space
- * 
- * 2). Merge 2 lists together at a time.
- * each time the total number of elmements is nk
- * logk merge in total
- * total time is O(nklogk)
- * no additional space, since it is linked lists
+ * - Each time, pick up the min from the k list
+ * - Use a k-size min-heap O(logk) 
+ * - Binary search is also OK, but heap is better
+ * - Time complexity is O(nk*logk)
+ * - Space Complemity is O(k)
  */
  
-/*public class Solution {
+public class Solution {
     private final class Compare implements Comparator<ListNode> {
         public int compare(ListNode n0, ListNode n1) { return n0.val - n1.val; }
     }
@@ -39,8 +42,15 @@
         }
         return dhead.next;
     }
-}*/
+}
 
+/**
+ 2). Merge 2 lists together at a time.
+ * each time the total number of elmements is nk
+ * logk merge in total
+ * total time is O(nklogk)
+ * no additional space, since it is linked lists
+ */
 public class Solution {
     public ListNode mergeKLists(List<ListNode> lists) {
         if (lists.isEmpty())  return null;    //XXXXXXX list is empty
