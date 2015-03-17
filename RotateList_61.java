@@ -14,15 +14,16 @@
  * - Assume k is smaller than the length of the linkedlist
  * - k is not guarenteed to be smaller than length!
  * 
- *  XXX Several Corner Cases! 
+ *  XXXX Several Corner Cases! 
  *  - k >= length               
  *  - k % length == 0           
-                XXX in this case curr is dhead, it will make dhead.next = null
- *  - length == 0     XXX k can not % length
+                XXXX in this case curr is dhead, it will make dhead.next = null
+ *  - length == 0     
+ *              XXXX k can not % length
  */
 public class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-        if (head == null)   return head;    // XXX  length == 0
+        if (head == null)   return head;    // XXXX  length == 0
        
         ListNode dhead = new ListNode(0);
         dhead.next = head;
@@ -34,8 +35,8 @@ public class Solution {
         
         k = k % length;
     
-        if (k == 0) return head;    // XXX  k == 0, curr = kp = dhead; 
-                                    // XXX  this will make dhead.next = null;
+        if (k == 0) return head;    // XXXX  k == 0, curr = kp = dhead; 
+                                    // XXXX  this will make dhead.next = null;
         curr = dhead;
         // move k steps ahead;
         while(kp.next != null && k != 0 )  { kp = kp.next; k--; }
