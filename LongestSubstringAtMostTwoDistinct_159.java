@@ -6,7 +6,7 @@ Longest Substring with At Most Two Distinct Characters
 /**
  * 1. Brute force
  * - Find each substring & check whether it has only two distinct characters
- * - O(n^2) to form substring & O(n) to find number of distict characters
+ * - O(n^2) to form substring & O(n) to find number of distinct characters
  * -  Hence O(n^3) in total
  * 
  * 2. Sliding Window
@@ -46,7 +46,7 @@ public class Solution {
 //------------------------------------------------------------------------------
 
 /***
- * 3. Extented to at most K distint characters. 
+ * 3. Extend to at most K distinct characters. 
  * - Use charset[] to determine how to slide the window
  * - int[] charset store the number of times a char appears
  **/
