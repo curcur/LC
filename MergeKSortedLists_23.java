@@ -16,12 +16,12 @@ Merge k Sorted Lists:
 
 /**
  * Two ways: (two ways of join)
- * 1). Merge k lists together at a time, each list has n numbers 
+ * 1. Merge k lists together at a time, each list has n numbers 
  * - Each time, pick up the min from the k list
  * - Use a k-size min-heap O(logk) 
  * - Binary search is also OK, but heap is better
  * - Time complexity is O(nk*logk)
- * - Space Complemity is O(k)
+ * - Space Complexity is O(k)
  */
  
 public class Solution {
@@ -33,7 +33,7 @@ public class Solution {
         if (lists.isEmpty())  return null;        
 	
 	// XXXX pq can not take 0 as input argument;
-	// initilaize the priorityqueue
+	// initialize the priorityqueue
         PriorityQueue<ListNode> pq = 
 	    new PriorityQueue<ListNode>(lists.size(), new Compare());
         for(ListNode ln : lists) if(ln != null) pq.add(ln);
@@ -51,8 +51,8 @@ public class Solution {
 //------------------------------------------------------------------------------
 
 /**
- * 2). Merge 2 lists together at a time.
- * - Each Round, the total number of elmements merged is nk
+ * 2. Merge 2 lists together at a time.
+ * - Each Round, the total number of elements merged is nk
  * - logk rounds in total
  * - Time Complexity is O(nk*logk)
  * - No additional space, since it is linked lists
