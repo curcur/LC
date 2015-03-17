@@ -1,17 +1,25 @@
+Wildcard Matching
+    - Implement wildcard pattern matching with support for '?' and '*'
+    - '?' Matches any single character.
+    - '*' Matches any sequence of characters (including the empty sequence).
+    - The matching should cover the entire input string (not partial).
+
 /**
- * Time Limit Exceeded
- * -- First Thought
- * -- Naive Recursion 
+ * 1. Time Limit Exceeded
+ * - Naive Recursion 
  */
-/*public class Solution {
+
+public class Solution {
     public boolean isMatch(String s, String p) { return isMatch(s, 0, p, 0); }
     
+    // si & pi are start position of s and p respectively
     public boolean isMatch(String s, int si, String p, int pi) {
         if (si == s.length() && pi == p.length())   return true;
         if (si == s.length() || pi == p.length())   return false;
         
         if (p.charAt(pi) == '*') {
-            // XXXXX optimization, one start and several star are the same
+            
+	    // XXXX optimization, one star = several successive stars
             while(pi+1 < p.length() && p.charAt(pi+1) == '*') pi++;
             
             for(int i=si; i<=s.length(); i++) {
@@ -22,30 +30,44 @@
             return isMatch(s, si+1, p, pi+1);
         } else return false;
     }
-}*/
+}
+
+
+//------------------------------------------------------------------------------
 
 /**
- * Iterative Method. Every Smart Method
- * Example:
- *  s: abcdjabcdjabcdj
- *  p: a*dj*dj
+ * 2. Iterative Method (Smart)
+ * - When meeting * in p, remember the position snext in s
+ * - Try to match the substring after * in p with substring after s[snext] in s
+ * - If not matchable, snext++ & try again until snext reaches the end of s
+ * - If during the matching phase, we meet another * in p
+ *   we should try to match after the new * in p with s[snext]
+
+ * - Example:
+ *   s: abcdjabcdjabcdj
+ *   p: a*dj*dj
  * 
- * if p[i] == s[j] or p[i] == '?' i++; j++
- * if p[i] == * i++, try to match i ... p.length to s[j]... s[j+1]... 
- * in the example, dj will match with the first dj, then * again, the second dj in p will match with the last dj in s.
+ * - if p[i] == s[j] or p[i] == '?' i++; j++
+ * - if p[i] == * i++, try to match p[i]... p[p.length-1] 
+     to s[j]..., s[j+1]..., ... 
+ * 
+ * - In the example, 'dj' in s will match with the first dj in p, then * again,
+ *   the second dj in p will match with the last dj in s.
  * 
  * There are several things need to be highlighted here:
- * 1). multiple * in the pattern: only the right most works
- * 2). if * is the last char in the pattern, then s matches p
- * 3). if j reaches the end of s, but i does not reach the end of p; 
- *      set j to the new start will not match either (not enough character)
- * 4). if having multiple stars like(*dj*) in the example, 
- *      the second * can reset the previous star loops on j
+ * - 1). multiple * in the pattern: only the right most works
+ * - 2). if * is the last char in the pattern, then s matches p
+ * - 3). if j reaches the end of s, but i does not reach the end of p; 
+ *       set j to the new start will not match either (not enough character)
+ * - 4). if having multiple stars like(*dj*) in the example, 
+ *       we will loop snext on the new * instead of old ones.
  */
-/*public class Solution {
+
+public class Solution {
     public boolean isMatch(String s, String p) {
         // i points to p, j points to s
-        // pstart: char after * in pattern; snext: the loop start when found a * in the pattern
+        // pstart: char after * in pattern; 
+	// snext: the loop start when found a * in the pattern
         
         int i = 0, j = 0, pstart = -1, snext = -1;   
         
@@ -56,7 +78,8 @@
             
             if (p.charAt(i) == '?' || p.charAt(i) == s.charAt(j)) { i++; j++; }
             else if (p.charAt(i) == '*') {
-                //while (i+1 < p.length() && p.charAt(i+1) == '*') i++;  // the rightmost *
+		// the rightmost *
+                // while (i+1 < p.length() && p.charAt(i+1) == '*') i++;  
                 if (i+1 == p.length())  return true;
                 pstart = ++i; snext = j; } 
             else if (snext >= 0 && snext < s.length()) {
@@ -68,18 +91,29 @@
         return i == p.length();
         
     }
-}*/
+}
+
+
+//------------------------------------------------------------------------------
 
 /**
- * More Concise Logic
+ * 3. More Concise Logic & Clean Code
  */ 
 public class Solution {
     public boolean isMatch(String s, String p) {
+	// pstart: char after * in pattern; 
+	// snext: the loop start when found a * in the pattern
         int i = 0, j = 0, pstart = -1, snext = -1;
+
         while(j<s.length()) {
-            if (i<p.length() && (p.charAt(i) == s.charAt(j) || p.charAt(i) == '?')) { i++; j++; }
+	    // single character matches
+            if (i<p.length() && (p.charAt(i) == s.charAt(j) 
+				 || p.charAt(i) == '?')) { i++; j++; }
+	    // * character
             else if (i<p.length() && p.charAt(i) == '*') {
                 pstart = ++i; snext = j; }
+
+	    // in the case i >= p.length() & loop through s from snext
             else if (snext >= 0) {
                 j = snext++; i = pstart;
             }
