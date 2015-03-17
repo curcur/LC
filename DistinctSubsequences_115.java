@@ -13,7 +13,7 @@
  *          F[i-1,j] { remove S[i]  } + F[i-1, j-1] * (S[i] == S[j])
  *      
  */
-public class Solution {
+/*public class Solution {
     public int numDistinct(String S, String T) {
         int m = S.length(), n = T.length();
         int[][] F = new int[m+1][n+1];
@@ -30,8 +30,26 @@ public class Solution {
             }
         return F[m][n];
     }
-}
+}*/
 
 /**
- * As usual, this can optimized to just use O(n) array
+ * As usual, this can be optimized to just use O(n) array
  */
+public class Solution {
+    public int numDistinct(String S, String T) {
+        int m = S.length(), n = T.length();
+        if (n == 0)     return 1;
+        
+        int[] F = new int[n];
+        
+        for(int i=0; i<m; i++) {
+            int previj = 1;
+            for(int j=0; j<=i && j<n; j++) {
+                int temp = F[j];
+                F[j] += S.charAt(i) == T.charAt(j) ? previj : 0;
+                previj = temp;
+            }
+        }
+        return F[n-1];
+    }
+}

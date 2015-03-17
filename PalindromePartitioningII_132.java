@@ -3,7 +3,7 @@
  * Now record number of MinCuts instead of lists 
  */
 
-/*public class Solution {
+public class Solution {
     public int minCut(String s) {
         int length = s.length();
         int[] MinCut = new int[length+1];   // MinCut[i] -- s[i-1]
@@ -26,7 +26,9 @@
         
         return MinCut[length];
     }
-}*/
+}
+
+//------------------------------------------------------------------------------
 
 /**
  * 2. One more Clever Method
@@ -40,11 +42,13 @@ public class Solution {
         for(int i=0; i<length+1; i++)  MinCut[i] = i-1;
         
         for(int i=0; i<length; i++) {
-            for(int j=0; i-j >=0 && i+j < length && s.charAt(i-j) == s.charAt(i+j); j++) { // odd
+            for(int j=0; i-j >=0 && i+j < length 
+		    && s.charAt(i-j) == s.charAt(i+j); j++) {   // odd
                 MinCut[i+j+1] = Math.min(MinCut[i+j+1], MinCut[i-j] + 1);
             }
             
-            for(int j=1; i-j+1>=0 && i+j<length && s.charAt(i-j+1) == s.charAt(i+j); j++) { // even
+            for(int j=1; i-j+1>=0 && i+j<length 
+		    && s.charAt(i-j+1) == s.charAt(i+j); j++) { // even
                 MinCut[i+j+1] = Math.min(MinCut[i+j+1], MinCut[i-j+1] + 1);    
             }
         }
