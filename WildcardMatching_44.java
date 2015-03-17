@@ -65,45 +65,10 @@ public class Solution {
 
 public class Solution {
     public boolean isMatch(String s, String p) {
-        // i points to p, j points to s
+	// i points to p, j points to s
         // pstart: char after * in pattern; 
 	// snext: the loop start when found a * in the pattern
-        
-        int i = 0, j = 0, pstart = -1, snext = -1;   
-        
-        while(j<s.length()) {
-            if (i == p.length() && snext >=0 && snext < s.length()) {
-                i = pstart; j = snext; snext++; }
-            else if (i == p.length())    return false;
-            
-            if (p.charAt(i) == '?' || p.charAt(i) == s.charAt(j)) { i++; j++; }
-            else if (p.charAt(i) == '*') {
-		// the rightmost *
-                // while (i+1 < p.length() && p.charAt(i+1) == '*') i++;  
-                if (i+1 == p.length())  return true;
-                pstart = ++i; snext = j; } 
-            else if (snext >= 0 && snext < s.length()) {
-                i = pstart; j = snext; snext++; }
-            else    return false;
-        }
-        
-        while (i < p.length() && p.charAt(i) == '*') i++;  // the rightmost *
-        return i == p.length();
-        
-    }
-}
-
-
-//------------------------------------------------------------------------------
-
-/**
- * 3. More Concise Logic & Clean Code
- */ 
-public class Solution {
-    public boolean isMatch(String s, String p) {
-	// pstart: char after * in pattern; 
-	// snext: the loop start when found a * in the pattern
-        int i = 0, j = 0, pstart = -1, snext = -1;
+	int i = 0, j = 0, pstart = -1, snext = -1;
 
         while(j<s.length()) {
 	    // single character matches
@@ -121,7 +86,7 @@ public class Solution {
         }
         
         // pattern has strings left
-        while(i<p.length() && p.charAt(i) == '*') i++;
+        while(i<p.length() && p.charAt(i) == '*') i++; // the rightmost *
         return i == p.length() ;
     }
 }
