@@ -30,9 +30,12 @@ public class Solution {
     }
     
     public ListNode mergeKLists(List<ListNode> lists) {
-        if (lists.isEmpty())  return null;        // XXXXXpq can not take 0 as input argument;
-        // initilaize the priorityqueue
-        PriorityQueue<ListNode> pq = new PriorityQueue<ListNode>(lists.size(), new Compare());
+        if (lists.isEmpty())  return null;        
+	
+	// XXXX pq can not take 0 as input argument;
+	// initilaize the priorityqueue
+        PriorityQueue<ListNode> pq = 
+	    new PriorityQueue<ListNode>(lists.size(), new Compare());
         for(ListNode ln : lists) if(ln != null) pq.add(ln);
 
         ListNode dhead = new ListNode(0), cur = dhead;
@@ -44,16 +47,20 @@ public class Solution {
     }
 }
 
+
+//------------------------------------------------------------------------------
+
 /**
- 2). Merge 2 lists together at a time.
- * each time the total number of elmements is nk
- * logk merge in total
- * total time is O(nklogk)
- * no additional space, since it is linked lists
+ * 2). Merge 2 lists together at a time.
+ * - Each Round, the total number of elmements merged is nk
+ * - logk rounds in total
+ * - Time Complexity is O(nk*logk)
+ * - No additional space, since it is linked lists
  */
+
 public class Solution {
     public ListNode mergeKLists(List<ListNode> lists) {
-        if (lists.isEmpty())  return null;    //XXXXXXX list is empty
+        if (lists.isEmpty())  return null;    //XXXX list is empty
         
         int length = 0, i = 0;
         while(lists.size() > 1) {
