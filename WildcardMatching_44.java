@@ -74,7 +74,7 @@ public class Solution {
 	    // single character matches
             if (i<p.length() && (p.charAt(i) == s.charAt(j) 
 				 || p.charAt(i) == '?')) { i++; j++; }
-	    // * character
+	    // * character matches
             else if (i<p.length() && p.charAt(i) == '*') {
                 pstart = ++i; snext = j; }
 
