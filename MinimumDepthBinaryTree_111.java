@@ -1,3 +1,8 @@
+Minimum Depth of Binary Tree
+    - Given a binary tree, find its minimum depth.
+    - The minimum depth is the number of nodes along the shortest path 
+      from the root node down to the nearest leaf node.
+
 /**
  * Definition for binary tree
  * public class TreeNode {
@@ -9,9 +14,20 @@
  */
 
 /**
- * recursive
+ * Compared to Maximum Depth of Binary Tree (104)
+ * 
+ * 1. Recursion
+ * - Min length is different from Max length because we should make sure
+ *   the path is ended with a $$leaf$$
+ *
+ *       0
+ *     1   2
+ *           3
+
+ * - In the above example, we should not stop at node2 since it has right child
  */
-/*public class Solution {
+
+public class Solution {
     public int minDepth(TreeNode root) {
         if (root == null)   return 0;
         
@@ -21,12 +37,19 @@
         return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
         
     }
-}*/
+}
+
+
+//------------------------------------------------------------------------------
 
 /**
- * postorder
+ * 2. Postorder
+ * - Preorder & Inorder only push the left tree into stack
+ * - the depth of the stack is the length of the path
+ * - only count path that are from root to each leaf node
  */
-/*public class Solution {
+
+public class Solution {
     public int minDepth(TreeNode root) {
         if (root == null) return 0;
         
@@ -43,9 +66,11 @@
             }
             
             curr = stack.pop();
-            //XXXXXXXXXX must also need curr.left == null (single left tree)
-            if (curr.right == null && curr.left == null) { minlength = Math.min(minlength, stack.size() + 1); }
-            if (curr.right == null || curr.right == lastvisit) { lastvisit = curr; curr = null; } 
+            //XXXX must also need curr.left == null (single left tree)
+            if (curr.right == null && curr.left == null) { 
+		minlength = Math.min(minlength, stack.size() + 1); }
+            if (curr.right == null || curr.right == lastvisit) { 
+		lastvisit = curr; curr = null; } 
             else { 
                 stack.push(curr); // push it back
                 lastvisit = curr;
@@ -56,15 +81,19 @@
         return minlength; 
         
     }
-}*/
+}
+
+
+//------------------------------------------------------------------------------
 
 /**
- * The more efficient way is using breadfirst search!!!!, 
- * you can break early instead of traversing every node.
- * 
- * How to know which floor it is,
- * XXXXXXX Use a rightmost!!!!
+ * 3. BFS
+ * - The more efficient way is using bread first search
+ * - Break early when reaching a leaf instead of traversing the entire tree
+ * - How to know which floor it is,
+ *   XXXX Use a rightmost
  */
+
 public class Solution{
     public int minDepth(TreeNode root) {
         if (root == null)   return 0;

@@ -1,3 +1,8 @@
+Maximum Depth of Binary Tree
+    - Given a binary tree, find its maximum depth.
+    - The maximum depth is the number of nodes along the longest path 
+      from the root node down to the farthest leaf node.
+
 /**
  * Definition for binary tree
  * public class TreeNode {
@@ -9,19 +14,25 @@
  */
  
 /**
- * The longest stack depth
- * 1. If using recursion, it is very easy;
- * it not, using postorder, preorder & inorder only in stack the left tree
+ * Compared to Minimum Depth of Binary Tree (111)
+ * 
+ * 1. Recursion
  */
-/*public class Solution {
+
+public class Solution {
     public int maxDepth(TreeNode root) {
         if (root == null)   return 0;
         return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
-}*/
+}
+
+
+//------------------------------------------------------------------------------
 
 /**
- * 2. Post-Order
+ * 2. Postorder
+ * - Preorder & Inorder only push the left tree into stack
+ * - The maxlength is the longest stack depth
  **/
 public class Solution {
     public int maxDepth(TreeNode root) {
@@ -38,7 +49,8 @@ public class Solution {
             maxlength = Math.max(maxlength, stack.size());
             
             curr = stack.pop();
-            if(curr.right == null || curr.right == lastvisit) { // return from right
+            if(curr.right == null || curr.right == lastvisit) { 
+		// return from right
                 lastvisit = curr; curr = null;
             }else{  //return from left
                 stack.push(curr);  lastvisit = curr; curr = curr.right;
