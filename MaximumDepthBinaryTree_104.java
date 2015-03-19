@@ -4,6 +4,10 @@ Maximum Depth of Binary Tree
       from the root node down to the farthest leaf node.
 
 /**
+ * Related: 111 Minimum Depth of Binary Tree
+ */
+
+/**
  * Definition for binary tree
  * public class TreeNode {
  *     int val;
@@ -14,8 +18,6 @@ Maximum Depth of Binary Tree
  */
  
 /**
- * Compared to Minimum Depth of Binary Tree (111)
- * 
  * 1. Recursion
  */
 
