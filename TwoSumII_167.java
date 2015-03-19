@@ -1,13 +1,28 @@
+Two Sum II - Input array is sorted
+    - Given an array of integers that is already sorted in ascending order
+    - Find two numbers such that they add up to a specific target number.
+
+    - The function twoSum should return indices of the two numbers such that 
+      they add up to the target, where index1 must be less than index2. 
+    - Please note that your returned answers (both index1 and index2) are 
+      not zero-based.
+    - You may assume that each input would have exactly one solution.
+
+Input: numbers={2, 7, 11, 15}, target=9
+Output: index1=1, index2=2
+
 /**
- * 1. Since the input is already sorted, we can use binary Search, so that no extra space.
- * 
- * 2. But in fact we have more efficenet solution for this, since it has already been sorted,
- * two pointers i ->  ; j <-
- * 
- * This is binary search first
+ * Related: 1 Two Sum
+ */				  
+
+/**
+ * 1. Binary Search
+ * - Binary search target-value for each value in the array
+ * - O(nlogn) time
+ * - O(1) space
  **/
  
-/*public class Solution {
+public class Solution {
     
     public int[] twoSum(int[] numbers, int target) {
         int[] res = new int[2];
@@ -25,28 +40,30 @@
             }
         }
         
-        return res;         // XXX missing this first time
+        return res;             // XXXX missing this first time
     }
     
     public int binarySearch(int[] numbers, int target, int start) {
         int left = start, right = numbers.length-1;
-        if (target < numbers[left] || target > numbers[right])  return -1;      // not in the range
-        
-        while(left <= right) {
+	while(left <= right) {
             int mid = (left + right)/2;
-            
-            if (numbers[left] == target)    return left;
-            if (numbers[right] == target)   return right;
-            if (numbers[mid] == target)     return mid;
-            
-            if (numbers[mid] > target)      right = mid-1;
+	    if (numbers[mid] == target)     return mid;
+	    if (numbers[mid] > target)      right = mid-1;
             else left = mid+1;
         }
-        
-        return -1;
+	return -1;
     }
-}*/
+}
 
+
+//------------------------------------------------------------------------------
+
+/**  
+ * 2. Begin & End pointers (for sorted array)
+ * - Two pointers left -> ; right <-
+ * - if numbers[left] + numbers[right] > target, right--
+ *   else if numbers[left] + numbers[right] < target, left++
+ */
 
 public class Solution {
     public int[] twoSum(int[] numbers, int target) {
@@ -55,13 +72,11 @@ public class Solution {
         while (left < right) {
             
             int sum = numbers[left] + numbers[right];
-            if (sum == target) { return new int[] {left+1, right+1};    // XXXXXXXXXXXX
+	    if (sum == target) { return new int[] {left+1, right+1};  // XXXX
             }else if (sum > target) { right--; 
             }else { left++; }
         }
         
-        throw new IllegalArgumentException("Not Found Valid Pairs!");   //  XXXXXXXXXXXX    
-        
-        
+        throw new IllegalArgumentException("Not Found Valid Pairs!"); // XXXX
     }
 }
