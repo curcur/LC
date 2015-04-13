@@ -1,7 +1,7 @@
 /**
  * ----------------------------------------------------------------------------
    Binary Tree Inorder Traversal 
-    - Given a binary tree, return the inorder traversal of its nodes values
+    - Given a binary tree, return the inorder traversal of its nodes values 
  * ----------------------------------------------------------------------------
  */
 
@@ -38,6 +38,8 @@ public class Solution {
         return inorder;
     }
 }
+
+//------------------------------------------------------------------------------
 
 /**
  * 2. morris

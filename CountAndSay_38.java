@@ -1,4 +1,6 @@
-Count and Say 
+/**
+ * ----------------------------------------------------------------------------
+   Count and Say 
     - The count-and-say sequence is the sequence of integers beginning 
       as follows:  
       1, 11, 21, 1211, 111221, ...
@@ -9,6 +11,8 @@ Count and Say
     - Given an integer n, generate the nth sequence starting from 1.
 
     - Note: The sequence of integers will be represented as a string.
+ * ----------------------------------------------------------------------------
+ */
 
 /**
  * Recursion
