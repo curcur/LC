@@ -8,7 +8,8 @@
  
 public class Solution {
     public int compareVersion(String version1, String version2) {
-        String[] v1 = version1.split("\\.");    // XXXXXXXXX . is regular expression, use \\ instead
+	// XXXX . is regular expression, use \\ instead
+        String[] v1 = version1.split("\\.");    
         String[] v2 = version2.split("\\.");
         
         int length = Math.min(v1.length, v2.length);

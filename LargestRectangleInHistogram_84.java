@@ -1,6 +1,6 @@
 /**
  * 1. O(n^2) + prune height[i+1] > height[i]
- * 2. O(nlogn) divide find min [left - min), min (min, right]
+ * 2. O(nlogn) divide find min [left - min), min (min, right], why?
  * 
  * 3. Stack ---  This is sooooo briliant, I can not come up with this method myself
  * The idea: - for each bar 'b', we find find the largest rectangle including bar 'b' 
