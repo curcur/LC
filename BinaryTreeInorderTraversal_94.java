@@ -17,7 +17,7 @@
  
 /**
  * 1. stack  
- * - O(n) time & space
+ * - O(n) time & O(logn) space
  * - the left side will not go into the stack
  */
  
