@@ -1,6 +1,25 @@
 /**
- * 1. Similar to I
- * Now record number of MinCuts instead of lists 
+ * ----------------------------------------------------------------------------
+   Palindrome Partitioning II
+    - Given a string s, partition s such that every substring of the partition 
+      is a palindrome.
+    - Return the minimum cuts needed for a palindrome partitioning of s.
+
+   For example, given s = "aab",
+    - Return 1 since the palindrome partitioning ["aa","b"] 
+      could be produced using 1 cut.
+ * ----------------------------------------------------------------------------
+ */
+
+/**
+ * Related: 131	Palindrome Partitioning 
+ */
+
+/**
+ * 1. Two States:
+ *   - MinCut[i], the minimal cut till s[i-1]
+ *   - palidrome[i][j], whether s(i...j) is a palindrome or not
+ * - MinCut[i] = Min{ MinCut[j]+1 if s(j...i) is palindrome} for each j<i
  */
 
 public class Solution {
@@ -32,7 +51,8 @@ public class Solution {
 
 /**
  * 2. One more Clever Method
- * MinCut[] is as before, but does not need palindrome[][]. 
+ * - MinCut[] is as before, but does not need palindrome[][]. 
+ * - expand using i as the center
  */
 public class Solution {
     public int minCut(String s) {
