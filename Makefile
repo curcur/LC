@@ -7,7 +7,7 @@
 all:	clean count
 
 clean:  
-	\rm  -f *~ 
+	\rm  -f *~ *#
 
 count:	
 	ls | grep -c java 

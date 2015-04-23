@@ -7,7 +7,8 @@ public class Solution {
         int l = 0, r = s.length()-1;
         
         while(l < r) {
-            while (l < r && !Character.isLetterOrDigit(chars[l]))   l++;        // $$$$$$$$$$$$
+            while (l < r && !Character.isLetterOrDigit(chars[l]))   l++;        
+	    // $$$$$$$$$$$$
             while (l < r && !Character.isLetterOrDigit(chars[r]))   r--;
             if(l < r) {
                 if (!match(chars[l], chars[r])) return false;
