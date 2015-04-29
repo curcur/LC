@@ -14,9 +14,11 @@ public class Solution {
             
             // check overflow
             if (reverse > Integer.MAX_VALUE / 10 || 
-            (reverse == Integer.MAX_VALUE / 10 && mod > Integer.MAX_VALUE % 10)) return 0;   // positive
+		(reverse == Integer.MAX_VALUE / 10 && 
+		 mod > Integer.MAX_VALUE % 10)) return 0;   // positive
             if (reverse < Integer.MIN_VALUE / 10 || 
-            (reverse == Integer.MIN_VALUE / 10 && mod < Integer.MIN_VALUE % 10)) return 0;   // negative
+		(reverse == Integer.MIN_VALUE / 10 && 
+		 mod < Integer.MIN_VALUE % 10)) return 0;   // negative
             reverse = reverse * 10 + mod;
         }
         return reverse;
