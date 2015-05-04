@@ -19,7 +19,7 @@
  * - Normal way to do this is O(n^2), two loops
  * - F[i] : the maximum subarray sum ending with i (must inlucde A[i])
  * - sum: the maximal sum till A[i] (not necessary include A[i])
- * - Time Compleixty: O(n) & Space O(1)
+ * - Time Compleixty: O(n) and Space O(1) 
  */
 
 public class Solution {
