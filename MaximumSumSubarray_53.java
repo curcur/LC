@@ -15,8 +15,7 @@
 
 /**
  * Keywords: Contiguous
- * - The contiguous may suggest a two pointer solution
- * - However it does not need to return the windows, only the sum
+ * - Normal way to do this is O(n^2), two loops
  * - F[i] : the maximum subarray sum ending with i (must inlucde A[i])
  * - sum: the maximal sum till A[i] (not necessary include A[i])
  * - Time Compleixty: O(n) & Space O(1)
@@ -32,3 +31,19 @@ public class Solution {
         return sum;    
     }
 }
+
+/**
+ * Some other thoughts:
+ * - 1. The hint asks for divide & conquer
+ *   - divide the array half each time
+ *   - the maximum sum comes from three ways:
+ *     1). the left; 
+ *     2). the right;
+ *     3). sum across the mid O(n): 
+ *         prefix in the left, and suffix in the right
+ *     T(n) = T(n/2)*2 + O(n) => O(nlogn)
+ *
+ * - 2. Return Window Rather than the Sum
+ *   - The ``contiguous'' suggests a two pointer solution
+ *   - shift the current left pointer to i if (isum == A[i])
+ */
