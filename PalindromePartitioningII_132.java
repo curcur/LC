@@ -56,6 +56,10 @@ public class Solution {
 /**
  * 2. Expanding Method, similar to ``5 Longest Palindromic Substring''
  * - MinCut[] is as before, but does not need palindrome[][] any more 
+ * - n centers in total, from each center i, if we can expand j step
+ *   update MinCut[i+j+1] = 1 + MinCut[i-j]
+ * - Since we can only update MinCut after i when using i as center
+ *   MinCut[i-j] has already been finalized
  */
 
 public class Solution {
@@ -63,18 +67,20 @@ public class Solution {
         int length = s.length();
         int[] MinCut = new int[length+1];
         
+	// initialize
         for(int i=0; i<length+1; i++)  MinCut[i] = i-1;
         
         for(int i=0; i<length; i++) {
-            for(int j=0; i-j >=0 && i+j < length && s.charAt(i-j) == s.charAt(i+j); j++) { // odd
-                MinCut[i+j+1] = Math.min(MinCut[i+j+1], MinCut[i-j] + 1);
+            for(int j=0; i-j>=0 && i+j<length && 
+		    s.charAt(i-j) == s.charAt(i+j); j++) { // odd
+                MinCut[i+j+1] = Math.min(MinCut[i+j+1], MinCut[i-j]+1);
             }
             
-            for(int j=1; i-j+1>=0 && i+j<length && s.charAt(i-j+1) == s.charAt(i+j); j++) { // even
-                MinCut[i+j+1] = Math.min(MinCut[i+j+1], MinCut[i-j+1] + 1);    
-            }
+            for(int j=0; i-j>=0 && i+j+1<length &&
+		    s.charAt(i-j) == s.charAt(i+j+1); j++) { // even
+                MinCut[i+j+2] = Math.min(MinCut[i+j+2], MinCut[i-j]+1);
+	    }
         }
-        
         return MinCut[length];
     }
 }
