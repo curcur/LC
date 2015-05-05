@@ -44,27 +44,51 @@ public class Solution {
 }
 
 /**
- * - P[i]: all possible partition lists till s(i)
- *      Hence, P[i] = P[j] + if s(j,i) is palin     for each j == i-1, ..., 0
+ * 2. Without Recursion, Similar to 131. Palindrome Partitioning II
+ * - res[i]: all possible partition lists till s(i)
+ *      Hence, res[i] = res[j] + if s(j,i) is palin     
+ *      for each j == i-1, ..., 0
  * 
  * - How to check whether s(j,i) is palin? O(n)
  *      - we can use s(j+1, i-1) is palin && s(j) == s(i) ?
  *      - this suggests another DP (two dimensional)
  */
-/*public class Solution {
+
+public class Solution {
     public List<List<String>> partition(String s) {
-        List<List<String>> res = new ArrayList<>();
-        int length = s.lengt();
-        if (length == 0)    return res;
+        int length = s.length();
+        if (length == 0)    
+            return new ArrayList<>();
         
-        // P[i]: the list of js where s(j...i) is palindrome
-        List<Integer>[] P = new List[length];
+        // res[i]: the partition substrings till s[i]
+        List<List<String>>[] res = new ArrayList[length];
         boolean[][] palindrome = new boolean[length][length];
         
         for(int i=0; i<length; i++) {
-            
+            res[i] = new ArrayList<>();
+            for(int j=0; j<=i; j++) {
+                if (s.charAt(j) == s.charAt(i)) {
+                    palindrome[j][i] = true;
+                    if (j+1 <= i-1)
+                        palindrome[j][i] = palindrome[j+1][i-1];
+                }
+                if (palindrome[j][i]) {
+                    if (j == 0) {   // the res[-1] is empty
+                        List<String> list = new ArrayList<>();
+                        list.add(s.substring(j, i+1));
+                        res[i].add(list);
+                    }else {
+                        for(List<String> list : res[j-1]) {
+                            // XXXX Do not need clone() method, 
+			    // XXXX Use construction directly
+                            List<String> copylist = new ArrayList<>(list);
+                            copylist.add(s.substring(j, i+1));
+                            res[i].add(copylist);
+                        }
+                    }
+                }
+            }
         }
-        
-        
+        return res[length-1];
     }
-}*/
+}
