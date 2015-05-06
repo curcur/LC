@@ -1,4 +1,21 @@
 /**
+ * ----------------------------------------------------------------------------
+   Rotate List
+    - Given a list, rotate the list to the right by k places,
+      where k is non-negative.
+
+   For example:
+    - Given 1->2->3->4->5->NULL and k = 2,
+    - return 4->5->1->2->3->NULL.
+ * ----------------------------------------------------------------------------
+ *
+
+/**
+ * Related: 189	Rotate Array
+ * Tags: Rotation, LinkedList
+ */
+
+/**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
@@ -9,47 +26,47 @@
  *     }
  * }
  */
+
 /**
- * - Find the prev position where the linked list is rotated
- * - Assume k is smaller than the length of the linkedlist
- * - k is not guarenteed to be smaller than length!
+ * - For LinkedList, we should always think of two pointers
+ * - For single LinkedList broken problem, always find the prev position
+ *   where the linked list is rotated (broken)
+ *
+ * - Question to ask: k smaller than the length of linkedList?
  * 
- *  XXXX Several Corner Cases! 
+ *  XXXX Several Corner Cases XXXX 
  *  - k >= length               
  *  - k % length == 0           
-                XXXX in this case curr is dhead, it will make dhead.next = null
+ *      XXXX in this case p1 is moving forward the same as p2
+ *	p1.next = null
  *  - length == 0     
- *              XXXX k can not % length
+ *      XXXX k can not % length
+ *
+ * - No need to use dhead this problem
  */
+
 public class Solution {
     public ListNode rotateRight(ListNode head, int k) {
         if (head == null)   return head;    // XXXX  length == 0
-       
-        ListNode dhead = new ListNode(0);
-        dhead.next = head;
-     
-        ListNode kp = dhead, curr = dhead;
+	ListNode curr = head, p1 = head, p2 = head;
         
         int length = 0;
-        while(curr.next != null) { length++; curr = curr.next; }
-        
-        k = k % length;
+        while(curr != null) { length++; curr = curr.next; }
+	k = k % length;
     
-        if (k == 0) return head;    // XXXX  k == 0, curr = kp = dhead; 
-                                    // XXXX  this will make dhead.next = null;
-        curr = dhead;
-        // move k steps ahead;
-        while(kp.next != null && k != 0 )  { kp = kp.next; k--; }
+        if (k == 0) return head;    // XXXX  k == 0, p1 = p2 
+                                    // XXXX  so new head = p1.next = null;
+	// move k steps ahead;
+        while(k != 0 )  { p2 = p2.next; k--; }
         
-        // kp is reaching the end of the list
-        while(kp.next != null) {
-            curr = curr.next; kp = kp.next;
+        // p2 is reaching the end of the list
+        while(p2.next != null) {
+            p1 = p1.next; p2 = p2.next;
         }
         
-        kp.next = dhead.next;
-        dhead.next = curr.next;
-        curr.next = null;
-        
-        return dhead.next;
+        curr = p1.next;
+	p1.next = null;
+	p2.next = head;
+	return curr;
     }
 }
