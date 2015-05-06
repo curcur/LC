@@ -97,12 +97,15 @@ public class Solution {
         if (length == 0)    
             return new ArrayList<>();
         
-        // res[i]: the partition substrings till s[i]
-        List<List<String>>[] res = new ArrayList[length];
-        boolean[][] palindrome = new boolean[length][length];
-        
+        // res[i+1]: the partition substrings till s[i]
+	// res[0] is an empty list
+        List<List<String>>[] res = new ArrayList[length+1];
+	res[0] = new ArrayList<>(); res[0].add(new ArrayList<>());
+	
+	boolean[][] palindrome = new boolean[length][length];
+
         for(int i=0; i<length; i++) {
-            res[i] = new ArrayList<>();
+            res[i+1] = new ArrayList<>();
             for(int j=0; j<=i; j++) {
                 if (s.charAt(j) == s.charAt(i)) {
                     palindrome[j][i] = true;
@@ -110,22 +113,16 @@ public class Solution {
                         palindrome[j][i] = palindrome[j+1][i-1];
                 }
                 if (palindrome[j][i]) {
-                    if (j == 0) {   // the res[-1] is empty
-                        List<String> list = new ArrayList<>();
-                        list.add(s.substring(j, i+1));
-                        res[i].add(list);
-                    }else {
-                        for(List<String> list : res[j-1]) {
-                            // XXXX Do not need clone() method, 
-			    // XXXX Use construction directly
-                            List<String> copylist = new ArrayList<>(list);
-                            copylist.add(s.substring(j, i+1));
-                            res[i].add(copylist);
-                        }
-                    }
-                }
+		    for(List<String> list : res[j]) {
+			// XXXX Do not need clone() method, 
+			// XXXX Use construction directly
+			List<String> copylist = new ArrayList<>(list);
+			copylist.add(s.substring(j, i+1));
+			res[i+1].add(copylist);
+		    }
+		}
             }
         }
-        return res[length-1];
+        return res[length];
     }
 }
