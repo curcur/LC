@@ -35,7 +35,8 @@
  *   - O(n+k) time, and O(k) space
  *
  * - Method 3 Reverse twice
- * - what if k >= length ?
+ *   - what if k >= length ?
+ *   - O(2n) time, O(1) space
  */
 
 public class Solution {
