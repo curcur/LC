@@ -55,6 +55,5 @@ public class Solution {
 	    nums[right] = temp;
             left++; right--;
         }
-        
     }
 }
