@@ -1,3 +1,4 @@
+Implement Trie (Prefix Tree)
 /**
  * - Node does not contain character, edge does
  * - Every node have a list of child nodes, and needs to be found quickly
