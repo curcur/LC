@@ -5,7 +5,7 @@
     - You may assume that the maximum length of S is 1000, and there exists 
       one unique longest palindromic substring.
  * ----------------------------------------------------------------------------
- *
+ */
 
 /**
  * Related: 53 Maximum Subarray
