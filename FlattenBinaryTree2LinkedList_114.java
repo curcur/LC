@@ -29,10 +29,9 @@
  */
 
 /**
- * Related: 189	Rotate Array
- * Tags: Rotation, LinkedList
+ * Related: solutions 2 Convert BST to Sorted DoubleLinked List
+ * Tags: Binary Tree, Linked List
  */
-
 
 /**
  * Definition for binary tree
@@ -43,12 +42,21 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+/**
+ * - This is similar to Convert BST to Sorted DoubleLinked List
+ * - Instead it is a pre-order traversal convert
+ * - Notice that this is a single linked list, use right pointer only,
+ *   and the left pointer is set to null
+ * - pair (head, tail), head = root, we only need to return the tail
+ */
+
 public class Solution {
     public void flatten(TreeNode root) {
         flat(root);
     }
     
-    // input the start, return end of the link
+    // input the start (root), return end of the link
     public TreeNode flat(TreeNode root) {
         if (root == null) return null;
         if (root.left == null && root.right == null) return root;
@@ -56,19 +64,53 @@ public class Solution {
         // TreeNode right = flat(root.right);
         TreeNode left = flat(root.left);
         TreeNode right = flat(root.right);
-        
-        if (left == null) { return right; }
-        if (right == null) { root.right = root.left; root.left = null; return left; }
-        
-        // neither is null
-        left.right = root.right;
-        root.right = root.left; 
-        root.left = null;
-        return right;
+        TreeNode tail = null;
+	
+        if (left == null) { 
+	    tail = right; 
+	} else if (right == null) { 
+	    root.right = root.left; 
+	    root.left = null; 
+	    tail = left;
+	} else {
+	    // neither is null
+	    left.right = root.right;
+	    root.right = root.left; 
+	    root.left = null;
+	    tail = right;
+	}
+	return tail;
     }
 }
 
+
+//------------------------------------------------------------------------------
+
 /**
- * Iterative Method? ---- In order Traversal?
+ * Iterative Method - use a stack
+ * - It is not a typical Preorder Traversal, because we need to set 
+ *   root.right = root.left, so we need some way to store the right node info
+ * - So we use the most original pre-order iterative
  */
 
+public class Solution {
+    public void flatten(TreeNode root) {
+	// XXXX do not forget
+	if (root == null)  return;
+
+        Stack<TreeNode> stack = new Stack<>();
+	stack.push(root);
+
+	while(!stack.isEmpty()) {
+	    TreeNode curr = stack.pop();
+	    if (curr.right != null) 
+		stack.push(curr.right);
+	    if (curr.left != null) 
+		stack.push(curr.left);
+	    if (!stack.isEmpty()) {
+		curr.right = stack.peek();
+	    }
+	    curr.left = null;
+	}
+    }
+}
