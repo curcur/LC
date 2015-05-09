@@ -49,6 +49,7 @@
  * - Notice that this is a single linked list, use right pointer only,
  *   and the left pointer is set to null
  * - pair (head, tail), head = root, we only need to return the tail
+ * - O(n) time, and O(logn) space
  */
 
 public class Solution {
