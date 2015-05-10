@@ -1,4 +1,20 @@
 /**
+ * ----------------------------------------------------------------------------
+   Reverse Linked List
+    - Reverse a singly linked list
+   
+   Hint:
+    - A linked list can be reversed either iteratively or recursively. 
+    - Could you implement both?
+ * ----------------------------------------------------------------------------
+ */
+
+/**
+ * Related: 92 Reverse Linked List II
+ * Tag: Linked List
+ */
+
+/**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
@@ -8,7 +24,7 @@
  */
 
 /**
- * Iterative
+ * Iteration is straightforward
  */
 
 public class Solution {
@@ -24,9 +40,16 @@ public class Solution {
     }
 }
 
+
+//------------------------------------------------------------------------------
+
 /**
- * Recursive
+ * Recursion is a little tricky
+ * - PostOrder
+ * - current.next.next = current
+ * - current.next = null XXXX do not forget this
  */
+
 public class Solution {
     public ListNode reverseList(ListNode head) {
         if (head == null || head.next == null)
@@ -34,7 +57,7 @@ public class Solution {
         
         ListNode newhead = reverseList(head.next);
         head.next.next = head;
-        head.next = null;    // $$$$
+        head.next = null;    // XXXX I forget this several times
         return newhead;
     }
 }
