@@ -77,6 +77,7 @@ public class Solution {
  *   the right tree
  * - we can keep tracking of min & max value of each subtree, by either
  * - push min/max into the substree or generate min/max of each subtree
+ * - O(n)
  */
 
 
