@@ -1,4 +1,20 @@
 /**
+ * ----------------------------------------------------------------------------
+   Reverse Linked List II
+    - Reverse a linked list from position m to n. 
+    - Do it in-place and in one-pass.
+
+   For example:
+    - Given 1->2->3->4->5->NULL, m = 2 and n = 4,
+    - Return 1->4->3->2->5->NULL.
+
+   Note:
+    - Given m, n satisfy the following condition:
+    - 1 ≤ m ≤ n ≤ length of list.
+ * ----------------------------------------------------------------------------
+ */
+
+/**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
@@ -15,25 +31,22 @@
  */ 
 public class Solution {
     public ListNode reverseBetween(ListNode head, int m, int n) {
-        ListNode dhead = new ListNode(-1);  dhead.next = head;
+        ListNode dhead = new ListNode(0);  dhead.next = head;
         ListNode prevstart = dhead, curr = head, prev, next;
         
-        int i = 1;
-        for(; i<m; i++) { prevstart = curr;  curr = curr.next; }
-        
-        prev = curr; curr = curr.next; i++;
+	for(int i=1; i<m; i++) { prevstart = prevstart.next; }
+	prev = prevstart; curr = prev.next; next = null; 
         
         // reverse the link
-        for(; i<=n; i++) {
+        for(int i=m; i<=n; i++) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;
         }
-        
-        prevstart.next.next = curr;
+	prevstart.next.next = curr;
         prevstart.next = prev;
-        
-        return dhead.next;
+	
+	return dhead.next;
     }
 }
