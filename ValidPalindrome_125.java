@@ -13,7 +13,7 @@
       This is a good question to ask during an interview.
       We define empty string as valid palindrome.
  * ----------------------------------------------------------------------------
- *
+ */
 
 /**
  * - Always ask corner cases, like whether an empty string is valid?

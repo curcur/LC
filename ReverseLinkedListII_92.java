@@ -15,6 +15,11 @@
  */
 
 /**
+ * Related: 206 Reverse Linked List
+ * Tag: Linked List
+ */
+
+/**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
@@ -27,7 +32,9 @@
  */
 
 /**
- * Reverse a link you should have prev, curr, next;
+ * - Reverse a link you should have prev, curr, next
+ * - Reverse m ... n 
+ * - Remeber the node before m, and the one after n
  */ 
 public class Solution {
     public ListNode reverseBetween(ListNode head, int m, int n) {
@@ -44,6 +51,8 @@ public class Solution {
             prev = curr;
             curr = next;
         }
+
+	// prev: Node_n; curr: Node_{n+1}
 	prevstart.next.next = curr;
         prevstart.next = prev;
 	
