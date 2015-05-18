@@ -23,6 +23,7 @@
 /**
  * - There are several different ways of designing, depending on 
  *   the requirement of operations, and also the space requirements.
+ *
  * - 1. If we wanna the $find$ operation fast, 
  *      - the fastest way is using a hash table to store all pairs of sum
  *      - the space is O(n^2), find time is O(1), and add time is O(n), 
@@ -32,8 +33,9 @@
  * - 2. If we wanna $add$ to be quick, 
  *      - we can use unsorted array, linkedlist, or hashmap
  *      - space is O(n), add time is O(1), find time is O(n)
- *      - for unsorted array/linkedlist, we need an additional hashmap for find
-
+ *      - for unsorted array/linkedlist, we need an additional hashmap for 
+ *        find
+ *
  * - 3. Or we can use a sorted array
  *      - no additional space is needed except for storing the array/linkedlist
  *      - add is O(logn), find is O(n)
@@ -52,21 +54,18 @@ public class TwoSum {
     HashMap<Integer, Integer> hmap = new HashMap<>();
     
     public void add(int number) {
-        Integer count = hmap.get(number);
-        if (count == null)  hmap.put(number, 1);
-        else hmap.put(number, count + 1);
+	if (!hmap.containsKey(number)) 
+	    hmap.put(number, 0);
+	hmap.put(number, hmap.get(number)+1);
     }
     
     public boolean find(int value) {
-	    
 	for (Integer itg : hmap.keySet()) {
 	    int remain = value - itg;
-	    Integer remainhash = hmap.get(remain);
-	    
-	    if (remainhash != null) {
-		if (remain != itg)   return true;
-		if (remainhash >= 2)    return true;     
-		// XXXXX  >=2, original I wrote >2
+	    if (hmap.containsKey(remain)) {
+		int remainCount = hmap.get(remain);
+		if (remain!=itg || remainCount>=2)   
+		    return true;
 	    } 
 	}
 	return false;
