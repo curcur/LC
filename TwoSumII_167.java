@@ -17,10 +17,38 @@
 
 /**
  * Related: 1 Two Sum
+ * Tags: Two Pointers, Array
  */				  
 
+/**  
+ * 1. Two Pointers (for sorted array)
+ * - Two pointers left -> ; right <-
+ * - if numbers[left] + numbers[right] > target, right--
+ *   else if numbers[left] + numbers[right] < target, left++
+ */
+
+public class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int left = 0, right = numbers.length-1;
+	while (left < right) {
+	    int sum = numbers[left] + numbers[right];
+	    if (sum == target) { 
+		return new int[] {left+1, right+1};  // XXXX
+            } else if (sum > target) { 
+		right--; 
+            } else { 
+		left++; 
+	    }
+        }
+	return null;
+    }
+}
+
+
+//------------------------------------------------------------------------------
+
 /**
- * 1. Binary Search
+ * 2. Binary Search
  * - Binary search target-value for each value in the array
  * - O(nlogn) time
  * - O(1) space
@@ -32,8 +60,7 @@ public class Solution {
         int[] res = new int[2];
         for (int i=0; i<numbers.length; i++) {
             int remain = target - numbers[i];
-            
-            if (remain < numbers[i]) break;
+	    if (remain < numbers[i]) break;
             
             int index = binarySearch(numbers, remain, i+1);
             
@@ -60,27 +87,4 @@ public class Solution {
 }
 
 
-//------------------------------------------------------------------------------
 
-/**  
- * 2. Begin & End pointers (for sorted array)
- * - Two pointers left -> ; right <-
- * - if numbers[left] + numbers[right] > target, right--
- *   else if numbers[left] + numbers[right] < target, left++
- */
-
-public class Solution {
-    public int[] twoSum(int[] numbers, int target) {
-        int left = 0, right = numbers.length-1;
-        
-        while (left < right) {
-            
-            int sum = numbers[left] + numbers[right];
-	    if (sum == target) { return new int[] {left+1, right+1};  // XXXX
-            }else if (sum > target) { right--; 
-            }else { left++; }
-        }
-        
-        throw new IllegalArgumentException("Not Found Valid Pairs!"); // XXXX
-    }
-}
