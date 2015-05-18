@@ -34,7 +34,8 @@ public class Solution {
  * - sort the array & use a hashmap to store pair value
  * - originally, I was trying to build the hashmap & match with the hashmap at the same time
  *   However, it is very hard to avoid duplicates
- * - Build up the hashmap pair first, and then only match the first pair duplicate value pair to
+ * - Build up the hashmap pair first, and then only match the first pair 
+ *   duplicate value pair to
  *   the hashmap would be much eaiser.
  * 
  * - There are two sets of duplicates

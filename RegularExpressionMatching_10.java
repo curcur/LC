@@ -21,6 +21,11 @@
  */
 
 /**
+ * Related: 53 
+ * Tags: Palindrome, Substring, Dynamic Programming
+ */
+
+/**
  * This kind of problem can always be solved by Recursion.
  * - Corner case: s is empty, p is X*
  * 

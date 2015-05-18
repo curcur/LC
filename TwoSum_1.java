@@ -21,13 +21,14 @@
  *          15  3Sum
  *          16  3Sum Closest
  *          18  4Sum
+ * Tags: Array, Two Pointers, HashMap
  */
 
 /**
  * 1. HashMap 
  * - value -> index
  * - two passes: Establish the hashmap
-                 For each value v in the array, search for target-v in hashmap
+                 For each element v in the array, search for target-v in hashmap
  * - O(n) time
  * - O(n) space
  * 
@@ -46,29 +47,28 @@ public class Solution {
         
 	// build up the hashmap
 	for (int i=0; i<numbers.length; i++) {
-	    Integer previndex = hmap.get(Integer.valueOf(numbers[i]));
-            if (previndex != null) {
-                // XXXX duplicates
-                if (numbers[i] * 2 == target) {
-                    res[0] = previndex.intValue()+1;
+	    if (hmap.containsKey(numbers[i])) {
+		// XXXX duplicates
+		int prevIndex = hmap.get(numbers[i]);
+		if (numbers[i] * 2 == target) {
+                    res[0] = prevIndex+1;
                     res[1] = i+1;
+		    return res;
                 } 
-            }
-            hmap.put(Integer.valueOf(numbers[i]), Integer.valueOf(i));
-            
-        }
+	    }	    
+            hmap.put(numbers[i], i);
+	}
         
 	// find target-numbers[i] in the hashmap
         for (int i=0; i<numbers.length; i++) {
             int remain = target - numbers[i];
-            Integer index = hmap.get(Integer.valueOf(remain));
-            if (remain != numbers[i] && index != null) {
-                res[0] = i+1;
-                res[1] = index.intValue()+1;
+	    // no single value used twice
+            if (remain!=numbers[i] && hmap.containsKey(remain)) {
+		res[0] = i+1;
+                res[1] = hmap.get(remain)+1;
                 break;
             }
         }
         return res;
-        
     }
 }
