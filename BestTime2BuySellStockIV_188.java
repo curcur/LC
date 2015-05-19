@@ -1,23 +1,28 @@
 /**
- * 1. DP: P(k, i) -- the maximum profit with k trans sell before/on ith day
- *           == MAX {    - 1. do nothing : P(k, i-1),
- *                       - 2. sell       : max{P(k-1, j) + price[i] - price[j]; j=0...i-1}
- *        
- *   }
+ * 1. DP: P(k, i) 
+ * - the maximum profit with at most k trans sell before/on ith day
+ *   == MAX { - 1. do nothing : P(k, i-1),
+ *            - 2. sell       : max{P(k-1, j) + price[i] - price[j]; j=0...i-1}
+ *           }
  */
-/*public class Solution {
+
+public class Solution {
     public int maxProfit(int k, int[] prices) {
         if (k == 0 || prices.length == 0)   return 0;
-        
-        if (k >= prices.length/2)   return maxNProfit(prices);  // XXXXXXXX when k is very very large
+
+        // XXXX when k is very very large
+        if (k >= prices.length/2)   return maxNProfit(prices);  
         
         int[][] Profit = new int[k+1][prices.length+1];
         
         for(int kk=1; kk<=k; kk++) {
-            int sellMax = Profit[kk-1][1] - prices[0];  // max{P(k-1, j) - P(j)}
+	    // max{P(k-1, j) - P(j)}
+            int sellMax = Profit[kk-1][1] - prices[0];
+  
             for(int i=1; i<=prices.length; i++) {
                 Profit[kk][i] = Profit[kk][i-1];
-                // XXX Do not need a loop here to find maxProfit[kk-1][j] + prices[i] - prices[j]
+                // XXXX Do not need a loop here to find maxProfit[kk-1][j] 
+		//                                    + prices[i] - prices[j]
                 sellMax = Math.max(sellMax, Profit[kk-1][i] - prices[i-1]);
                 Profit[kk][i] = Math.max(Profit[kk][i], prices[i-1]+sellMax);
             }
@@ -32,7 +37,9 @@
         }
         return maxprofit;
     }
-}*/
+}
+
+//------------------------------------------------------------------------------
 
 /**
  * 2. maxsell[k], maxbuy[k]: the maximum money you get till transaction k 
