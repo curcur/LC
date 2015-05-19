@@ -2,9 +2,10 @@
  * 1. DFS 
  */
  
-/*public class Solution {
+public class Solution {
     
-    String[] LETTERS = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    String[] LETTERS = {"abc", "def", "ghi", "jkl", "mno", "pqrs", 
+			"tuv", "wxyz"};
     List<String> res = new ArrayList<>();
     String digits;
     
@@ -18,46 +19,48 @@
     }
     
     private void letterCombinations(int level, StringBuilder path) {
-        String temp = LETTERS[digits.charAt(level) - '2'];
-        if (level == digits.length()-1) {
-            for(int i=0; i<temp.length(); i++)
-                res.add(new String(path.toString() + temp.charAt(i)));
+	if (level == digits.length()) {
+	    res.add(path.toString());
             return;
-        }
+	}
         
-        for(int i=0; i<temp.length(); i++) {
+	String temp = LETTERS[digits.charAt(level) - '2'];
+	int length = temp.length();
+	for(int i=0; i<length; i++) {
             path.append(temp.charAt(i));            // add it
-            letterCombinations(level+1, path);
-            path.deleteCharAt(path.length()-1);     // and pop it after finishing
+            letterCombinations(level+1, path);	    
+            path.deleteCharAt(path.length()-1);     // and pop it
         }
     }
-}*/
+}
 
 /**
- * 2. BFS (Iterative), this method needs to store many more intermediate results
+ * 2. Iterative, this method needs to store many more intermediate results
+ * - Kind of like a BFS
  */
 
 public class Solution {
-    String[] LETTERS = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    String[] LETTERS = {"abc", "def", "ghi", "jkl", "mno", "pqrs", 
+			"tuv", "wxyz"};
    
     public List<String> letterCombinations(String digits) {
-        List<String> res = new ArrayList<>();   /// res.add("");    XXXXXXX
+	/// res.add("");    XXXXXXX
+        LinkedList<String> res = new LinkedList<>();   
         if (digits == null || digits.length() == 0)   return res;
         
         res.add("");
-        int start = 0;                          
-        /// $$$$$$$$, we can have a new list also, here we keep it in just one list
+        
+        /// $$$$, we can have a new list also, here we keep it in just one list
         for(int i=0; i<digits.length(); i++) {
             String letters = LETTERS[digits.charAt(i) - '2'];
             int length = res.size();
-            for(;start<length; start++) {
+            while(length-- != 0) {
+		String leftsub = res.poll();
                 for(int j=0; j<letters.length(); j++) {
-                    res.add(res.get(start) + letters.charAt(j));
+                    res.add(leftsub + letters.charAt(j));
                 }
             }
         }
-        
-        return res.subList(start, res.size());
-        
+        return res;
     }
 }

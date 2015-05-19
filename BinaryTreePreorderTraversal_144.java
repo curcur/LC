@@ -12,12 +12,12 @@
 /**
  * 1. Stack sloution O(n) time & memory complexity
  * */
-/*public class Solution {
+public class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
         
         // we can use a stack to solve the pre-order traversal
-        LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
-        ArrayList<Integer> preorder = new ArrayList<Integer>();
+        LinkedList<TreeNode> stack = new LinkedList<>();
+        ArrayList<Integer> preorder = new ArrayList<>();
         
         TreeNode curr = null;
         
@@ -77,8 +77,8 @@
  */
 public class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> preorder = new ArrayList<Integer>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        List<Integer> preorder = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
         
         TreeNode curr = root;
         while (!stack.isEmpty() || curr != null) {
