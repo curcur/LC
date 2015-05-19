@@ -1,4 +1,23 @@
 /**
+ * ----------------------------------------------------------------------------
+   Binary Tree Postorder Traversal
+    - Given a binary tree, return the postorder traversal of its nodes' values.
+
+   For example:
+    - Given binary tree {1,#,2,3},
+
+   1
+    \
+     2
+    /
+   3
+    - return [3,2,1].
+
+   Note: Recursive solution is trivial, could you do it iteratively?
+ * ----------------------------------------------------------------------------
+ */
+
+/**
  * Definition for binary tree
  * public class TreeNode {
  *     int val;
@@ -10,49 +29,46 @@
  
  /**
   * 1. stack
-  * similar to inorder, the parenet+right pushed into the stack
-  * need to check whether the second time visit a node (the first time should visit the right)
-  * lastvisit node
+  * - all trees are pushed into the stack instead of just the left tree
+  * - need to check whether coming back from the left tree or right tree
+  * - to solve this, we maintain a lastvisit node to check whether
+  *   the right tree has already visited
   */
   
 public class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         
-        List<Integer> postorder = new ArrayList<Integer>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        List<Integer> postorder = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
         
         TreeNode curr = root, lastvisit = null;
         
         
         while (curr !=null || !stack.isEmpty()) {
             
-            if (curr != null) {
-                lastvisit = curr;
-                stack.push(curr);
-                if (curr.left != null) {    // left tree
+            while (curr != null) {
+		stack.push(curr);
+                if (curr.left != null)   // left tree
                     curr = curr.left;
-                    continue;
-                }
-                else {                      // right tree
+		
+                else                     // right tree
                     curr = curr.right;
-                    continue;
-                }
             }
             
             curr = stack.pop();
-            // two possibility here, 1) back from left tree; 2) back from right tree;
-            
-            
-            if (curr.right == null || curr.right == lastvisit) {
-                // 2) back from right tree
-                postorder.add(new Integer(curr.val));
+
+            // two possibility here: 
+	    // 1) back from left tree; 2) back from right tree;
+
+	    // 2) back from right tree
+	    if (curr.right == null || curr.right == lastvisit) {
+		postorder.add(new Integer(curr.val));
                 lastvisit = curr;
-                curr = null;
+                curr = null;   // $$$$ back from the entire tree, go on pop;
             }
-            else {  // back from left tree
+            else {  // 1) back from left tree
                 stack.push(curr);       // push back second time
-                lastvisit = curr;
-                curr = curr.right;
+		curr = curr.right;      // work on the right subtree
             }
         }
         
