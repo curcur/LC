@@ -1,8 +1,30 @@
 /**
- * 1. Similar to 3Sum O(n^3)
- * -- the hard part is how to avoid duplicates:
+ * ----------------------------------------------------------------------------
+   4Sum
+    - Given an array S of n integers, are there elements a, b, c, and d in S 
+      such that a + b + c + d = target? 
+
+    - Find all unique quadruplets in the array which gives the sum of target.
+
+   Note:
+    - Elements in a quadruplet (a,b,c,d) must be in non-descending order. 
+      (ie, a ≤ b ≤ c ≤ d)
+    - The solution set must not contain duplicate quadruplets.
+      
+   For example, given array S = {1 0 -1 0 -2 2}, and target = 0.
+    A solution set is:
+    (-1,  0, 0, 1)
+    (-2, -1, 1, 2)
+    (-2,  0, 0, 2)
+ * ----------------------------------------------------------------------------
+ */
+
+/**
+ * 1. Similar to 3Sum O(n^3), no space needed
+ * - the hard part is how to avoid duplicates:
  *   if (i>0 && num[i] == num[i-1]) continue;  // avoid duplicates  
  */
+
 public class Solution {
     public List<List<Integer>> fourSum(int[] num, int target) {
         List<List<Integer>> res = new ArrayList<>();
@@ -18,7 +40,8 @@ public class Solution {
                     if (sum == target) {
                         res.add(Arrays.asList(num[i], num[j], num[l], num[r]));
                         l++; r--;
-                        while(l<r && num[l] == num[l-1]) l++;   // avoid duplicates
+			// avoid duplicates
+                        while(l<r && num[l] == num[l-1]) l++;   
                         while(l<r && num[r] == num[r+1]) r--;
                     }else if (sum < target) l++;
                     else r--;
@@ -32,11 +55,13 @@ public class Solution {
 /**
  * 2. O(n^2) + HashMap 
  * - sort the array & use a hashmap to store pair value
- * - originally, I was trying to build the hashmap & match with the hashmap at the same time
- *   However, it is very hard to avoid duplicates
+
+ * - originally, I was trying to build the hashmap & 
+ *   match with the hashmap at the same time
+ * - However, it is very hard to avoid duplicates
+ *
  * - Build up the hashmap pair first, and then only match the first pair 
- *   duplicate value pair to
- *   the hashmap would be much eaiser.
+ *   duplicate value pair to the hashmap would be much eaiser.
  * 
  * - There are two sets of duplicates
  * - 1). avoid duplicated combination
@@ -46,6 +71,7 @@ public class Solution {
  *      (2, 4)----|
  *         |----(3, 4)
  * - match the pair when sum=target & j < p.x
+ *
  * - XXXX 2). the input array have duplicate inputs
  *   [0, 1, 1, 1, 1, 2], target = 4
  *      [1, 1, 1, 1, 2]
@@ -64,7 +90,7 @@ public class Solution {
         
         Arrays.sort(num);
         
-        // pair(i, j) --- i<j
+        // construct hashmap, pair(i, j) --- i<j
         for(int i=0; i<num.length; i++)
             for(int j=i+1; j<num.length; j++) {
                 int sum = num[i]+num[j];
